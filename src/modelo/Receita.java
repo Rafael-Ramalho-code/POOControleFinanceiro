@@ -1,7 +1,9 @@
 package modelo;
 
 public class Receita extends Movimentacao{
-    public Receita(int valor, int data, String categoria) {
-        super(valor, data, categoria);
+    public Receita(double valor, String data, String categoria) {
+        super(valor, data, categoria, "receita");
     }
+
+
 }

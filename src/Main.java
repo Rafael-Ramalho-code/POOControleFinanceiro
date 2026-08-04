@@ -1,9 +1,21 @@
+import modelo.Conta;
+import modelo.Receita;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int escolhaInicial=0;
+        double valor;
+        String data;
+        String categoria;
+
+        System.out.print("Digite o limite inicial do cartão de crédito: ");
+        double limiteInicial = sc.nextDouble();
+        sc.nextLine();
+
+        Conta minhaConta = new Conta(limiteInicial);
 
         while (escolhaInicial != 5){
             System.out.print("----- SISTEMA DE CONTROLE FINANCEIRO -----\n\n" +
@@ -17,7 +29,15 @@ public class Main {
             escolhaInicial = sc.nextInt();
             switch (escolhaInicial){
                 case 1:
-                    //registrarReceita();
+
+                    System.out.print("Valor da receita: ");
+                    valor = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.println("Data da receita(digite nesse padrao DD/MM/YYYY): ");
+                    data = sc.nextLine();
+                    System.out.println("Categoria da receita: ");
+                    categoria = sc.nextLine();
+                    minhaConta.adicionarMovimentacao(new Receita(valor, data, categoria));
                     break;
                 case 2:
                     //registrarDespesa();
