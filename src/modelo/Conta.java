@@ -66,7 +66,9 @@ public class Conta {
         }
     }
 
-    public void AdicionarCategoria(String c){
+    public void AdicionarCategoria(String n){
+        Categoria c = new Categoria();
+        n = c.getNome();
         categorias.add(c);
     }
 }
