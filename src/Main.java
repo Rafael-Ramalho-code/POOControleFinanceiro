@@ -10,6 +10,8 @@ public class Main {
         double valor;
         String data;
         String categoria;
+        String tipo;
+        String id;
 
         System.out.print("Digite o limite inicial do cartão de crédito: ");
         double limiteInicial = sc.nextDouble();
@@ -37,7 +39,9 @@ public class Main {
                     data = sc.nextLine();
                     System.out.println("Categoria da receita: ");
                     categoria = sc.nextLine();
-                    minhaConta.adicionarMovimentacao(new Receita(valor, data, categoria));
+                    tipo = sc.nextLine();
+                    id = sc.nextLine();
+                    minhaConta.adicionarMovimentacao(new Receita(valor, data, categoria, tipo, id));
                     break;
                 case 2:
                     //registrarDespesa();
