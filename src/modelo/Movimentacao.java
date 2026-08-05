@@ -55,5 +55,9 @@ public abstract class Movimentacao {
         this.id = id;
     }
 
+    public String toString(){
+        return "---------- Detalhes da Movimentação ----------\nValor: " + getValor() + "\nData: " + getData() + 
+        "\nCategoria: " + getCategoria() + "\nTipo: " + getTipo() + "\nID: " + getId() ;
+    }
     
 }
