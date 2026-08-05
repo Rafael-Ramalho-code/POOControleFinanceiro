@@ -8,7 +8,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int escolhaInicial=0;
         double valor;
-        String data;
         String categoria;
         String tipo;
         String id;
@@ -36,15 +35,18 @@ public class Main {
                     valor = sc.nextDouble();
                     sc.nextLine();
                     System.out.println("Data da receita(digite nesse padrao DD/MM/YYYY): ");
-                    data = sc.nextLine();
                     System.out.println("Categoria da receita: ");
                     categoria = sc.nextLine();
                     tipo = sc.nextLine();
                     id = sc.nextLine();
-                    minhaConta.adicionarMovimentacao(new Receita(valor, data, categoria, tipo, id));
+                    minhaConta.adicionarMovimentacao(new Receita(valor, categoria, tipo, id));
                     break;
                 case 2:
-                    //registrarDespesa();
+                    System.out.println("Valor da despesa: ");
+                    valor = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.println("Categoria da despesa: ");
+                    categoria = sc.nextLine();
                     break;
                 case 3:
                     //alterarMovimentacao();

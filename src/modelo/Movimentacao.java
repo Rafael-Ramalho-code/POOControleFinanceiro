@@ -1,15 +1,16 @@
 package modelo;
 
+import java.time.LocalDate;
+
 public abstract class Movimentacao {
     private double valor;
-    private String  data;
+    private final LocalDate data = LocalDate.now();
     private String categoria;
     private String tipo;
     private String id;
 
-    public Movimentacao(double valor, String data, String categoria, String tipo, String id) {
+    public Movimentacao(double valor, String categoria, String tipo, String id) {
         this.valor = valor;
-        this.data = data;
         this.categoria = categoria;
         this.tipo = tipo;
         this.id = id;
@@ -23,12 +24,8 @@ public abstract class Movimentacao {
         this.valor = valor;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public String getCategoria() {
