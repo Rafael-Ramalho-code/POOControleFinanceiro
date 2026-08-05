@@ -2,7 +2,7 @@ package pagamento;
 
 import modelo.Conta;
 
-class CartaoCredito implements MetodoPagamento{
+public class CartaoCredito implements MetodoPagamento{
     private String diaVencimeto;
 
     public CartaoCredito(String diaVencimento){

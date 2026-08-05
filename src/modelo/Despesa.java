@@ -1,6 +1,6 @@
 package modelo;
 
-class Despesa extends Movimentacao{
+public class Despesa extends Movimentacao{
     private int meioPagamento;
     public Despesa(double valor, String categoria, int meioPagamento){
         super(valor, categoria, "despesa");
