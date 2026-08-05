@@ -5,12 +5,14 @@ public abstract class Movimentacao {
     private String  data;
     private String categoria;
     private String tipo;
+    private String id;
 
-    public Movimentacao(double valor, String data, String categoria, String tipo) {
+    public Movimentacao(double valor, String data, String categoria, String tipo, String id) {
         this.valor = valor;
         this.data = data;
         this.categoria = categoria;
         this.tipo = tipo;
+        this.id = id;
     }
 
     public double getValor() {
@@ -44,4 +46,14 @@ public abstract class Movimentacao {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    
 }

@@ -56,6 +56,16 @@ public class Conta {
         AdicionarCategoria(m.getCategoria());
     }
 
+    public void editarMovimentacao(String id, Movimentacao novaMovimentacao){
+        for(Movimentacao m : movimentacoes){
+            if(id.equals(m.getId())){
+                int index = movimentacoes.indexOf(m);
+                movimentacoes.set(index, novaMovimentacao);
+                break;
+            }
+        }
+    }
+
     public void AdicionarCategoria(String c){
         categorias.add(c);
     }
