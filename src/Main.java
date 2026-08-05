@@ -23,9 +23,7 @@ public class Main {
                     "Possiveis ações:\n" +
                     "[1] Registrar receita\n" +
                     "[2] Registrar despesa\n" +
-                    "[3] Alterar movimentação\n" +
-                    "[4] Ver saldo\n" +
-                    "[5] SAIR\n" +
+                    "[3] SAIR\n" +
                     "Digite: ");
             escolhaInicial = sc.nextInt();
             switch (escolhaInicial){
@@ -34,12 +32,9 @@ public class Main {
                     System.out.print("Valor da receita: ");
                     valor = sc.nextDouble();
                     sc.nextLine();
-                    System.out.println("Data da receita(digite nesse padrao DD/MM/YYYY): ");
                     System.out.println("Categoria da receita: ");
                     categoria = sc.nextLine();
-                    tipo = sc.nextLine();
-                    id = sc.nextLine();
-                    minhaConta.adicionarMovimentacao(new Receita(valor, categoria, tipo, id));
+                    minhaConta.adicionarMovimentacao(new Receita(valor, categoria));
                     break;
                 case 2:
                     System.out.println("Valor da despesa: ");

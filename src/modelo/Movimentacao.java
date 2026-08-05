@@ -9,11 +9,10 @@ public abstract class Movimentacao {
     private String tipo;
     private String id;
 
-    public Movimentacao(double valor, String categoria, String tipo, String id) {
+    public Movimentacao(double valor, String categoria, String tipo) {
         this.valor = valor;
         this.categoria = categoria;
         this.tipo = tipo;
-        this.id = id;
     }
 
     public double getValor() {

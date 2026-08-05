@@ -2,8 +2,8 @@ package modelo;
 
 class Despesa extends Movimentacao{
     private int meioPagamento;
-    public Despesa(double valor, String categoria, String tipo, String id, int meioPagamento){
-        super(valor, categoria, tipo, id);
+    public Despesa(double valor, String categoria, int meioPagamento){
+        super(valor, categoria, "despesa");
         this.meioPagamento = meioPagamento;
     }
 
