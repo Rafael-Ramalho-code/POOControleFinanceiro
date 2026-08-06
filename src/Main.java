@@ -1,8 +1,11 @@
-import modelo.Conta;
-import modelo.Receita;
-import modelo.Despesa;
-
 import java.util.Scanner;
+
+import modelo.Conta;
+import modelo.Despesa;
+import modelo.Receita;
+import pagamento.CartaoCredito;
+import pagamento.MetodoPagamento;
+import pagamento.Pix;
 
 public class Main {
 
@@ -25,6 +28,7 @@ public class Main {
         int escolhaInicial = 0;
         double valor;
         String categoria;
+        
 
         System.out.print("Digite o limite inicial do cartão de crédito: ");
         double limiteInicial = sc.nextDouble();
@@ -62,9 +66,27 @@ public class Main {
                     break;
 
                 case 2:
+                    int escolha;
                     System.out.println("Valor da despesa: ");
                     valor = sc.nextDouble();
                     sc.nextLine();
+
+                    System.out.print
+                    ("--------- Selecione o método de pagamento ---------\n"+
+                    "[1] - Pix\n[2] - Cartão de crédito\nEscolha: ");
+                    escolha = sc.nextInt();
+                    sc.nextLine();
+                    if(escolha == 1){
+                        MetodoPagamento pix = new Pix();
+                        pix.processarPagamento(valor, minhaConta);
+                    }else if(escolha == 2){
+                        MetodoPagamento cartaoCredito = new CartaoCredito();
+                        cartaoCredito.processarPagamento(valor, minhaConta);
+                    }else{
+                        System.out.println("Digite uma opção válida");
+                        continue;
+                    }
+
                     System.out.println("Categoria da despesa: ");
                     categoria = sc.nextLine();
 
