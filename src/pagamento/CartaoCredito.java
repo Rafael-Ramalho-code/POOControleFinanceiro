@@ -17,11 +17,17 @@ public class CartaoCredito implements MetodoPagamento{
 
        if(limite - fatura >= valor && valor <= limite){
             fatura += valor;
+            conta.setFaturaCartao(fatura);
         }else{
             //SaldoInsuficienteException
             System.out.println("Não é possível fazer a transação no momento");
         }
         
+    }
+
+    @Override
+    public String toString(){
+        return "Cartão de crédito";
     }
 
     

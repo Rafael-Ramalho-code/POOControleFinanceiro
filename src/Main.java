@@ -70,6 +70,7 @@ public class Main {
                     break;
 
                 case 2:
+                    MetodoPagamento meioPagamento;
                     int escolha;
                     System.out.println("Valor da despesa: ");
                     valor = sc.nextDouble();
@@ -81,11 +82,11 @@ public class Main {
                     escolha = sc.nextInt();
                     sc.nextLine();
                     if(escolha == 1){
-                        MetodoPagamento pix = new Pix();
-                        pix.processarPagamento(valor, minhaConta);
+                        meioPagamento = new Pix();
+                        meioPagamento.processarPagamento(valor, minhaConta);
                     }else if(escolha == 2){
-                        MetodoPagamento cartaoCredito = new CartaoCredito();
-                        cartaoCredito.processarPagamento(valor, minhaConta);
+                        meioPagamento = new CartaoCredito();
+                        meioPagamento.processarPagamento(valor, minhaConta);
                     }else{
                         System.out.println("Digite uma opção válida");
                         continue;
@@ -94,7 +95,7 @@ public class Main {
                     System.out.println("Categoria da despesa: ");
                     categoria = sc.nextLine();
 
-                    minhaConta.adicionarMovimentacao(new Despesa(valor, categoria)); // isso estava faltando
+                    minhaConta.adicionarMovimentacao(new Despesa(valor, categoria, meioPagamento)); // isso estava faltando
                     minhaConta.setSaldo(minhaConta.getSaldo() - valor); // desconta do saldo
 
                     exibirCabecalho(minhaConta);
