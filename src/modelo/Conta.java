@@ -61,4 +61,15 @@ public class Conta {
         n = c.getNome();
         categorias.add(c);
     }
+
+    public void exibirHistorico(){
+        if(movimentacoes.isEmpty()){
+            System.out.println("Nenhuma movimentação registrada na conta");
+            return;
+        }
+        for(Movimentacao m : movimentacoes){
+            System.out.println(m);
+        }
+        
+    }
 }

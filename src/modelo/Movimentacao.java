@@ -7,7 +7,7 @@ public abstract class Movimentacao {
     private final LocalDate data = LocalDate.now();
     private String categoria;
     private String tipo;
-    private String id;
+    //private String id;
 
     public Movimentacao(double valor, String categoria, String tipo) {
         this.valor = valor;
@@ -43,17 +43,18 @@ public abstract class Movimentacao {
         this.tipo = tipo;
     }
 
-    public String getId() {
+    /*public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
+    */
 
     public String toString(){
         return "---------- Detalhes da Movimentação ----------\nValor: " + getValor() + "\nData: " + getData() + 
-        "\nCategoria: " + getCategoria() + "\nTipo: " + getTipo() + "\nID: " + getId() ;
+        "\nCategoria: " + getCategoria() + "\nTipo: " + getTipo();
     }
     
 }
