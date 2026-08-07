@@ -1,7 +1,9 @@
+import java.util.List;
 import java.util.Scanner;
 
 import modelo.Conta;
 import modelo.Despesa;
+import modelo.Movimentacao;
 import modelo.Receita;
 import pagamento.CartaoCredito;
 import pagamento.MetodoPagamento;
@@ -36,7 +38,7 @@ public class Main {
 
         Conta minhaConta = new Conta(limiteInicial);
 
-        while (escolhaInicial != 4) {
+        while (escolhaInicial != 5) {
             exibirCabecalho(minhaConta); // saldo sempre no topo, antes do menu
 
             System.out.print("----- SISTEMA DE CONTROLE FINANCEIRO -----\n\n" +
@@ -44,7 +46,8 @@ public class Main {
                     "[1] Registrar receita\n" +
                     "[2] Registrar despesa\n" +
                     "[3] Ver histórico de movimentações\n" +
-                    "[4] SAIR\n" +
+                    "[4] Filtrar movimentações\n" +
+                    "[5] SAIR\n" +
                     "Digite: ");
             escolhaInicial = sc.nextInt();
             sc.nextLine();
@@ -106,6 +109,21 @@ public class Main {
                     sc.nextLine();
                     break;
                 case 4:
+                    exibirCabecalho(minhaConta);
+                    System.out.print("Digite a categoria que quer filtrar: ");
+                    String categoriaEscolhida = sc.nextLine();
+                    List <Movimentacao> resultado = minhaConta.filtrarPorCategoria(categoriaEscolhida);
+                    if(resultado.isEmpty()){
+                        System.out.println("Categoria não encontrada");
+                    }else{
+                        for(Movimentacao m : resultado){
+                            System.out.println(m);
+                        }
+                        System.out.println("\nPressione ENTER para voltar ao menu...");
+                        sc.nextLine();
+                    }
+                    break;
+                case 5:
                     System.out.println("Saindo do programa...");
                     break;
 

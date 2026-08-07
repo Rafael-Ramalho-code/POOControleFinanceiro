@@ -32,7 +32,7 @@ public abstract class Movimentacao {
     }
 
     public void setCategoria(String categoria) {
-        this.categoria = categoria;
+        this.categoria = categoria.strip();
     }
 
     public String getTipo() {
