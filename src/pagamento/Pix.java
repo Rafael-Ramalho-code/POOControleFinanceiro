@@ -10,10 +10,16 @@ public class Pix implements MetodoPagamento{
         double saldo = conta.getSaldo();
         if(saldo >= valor){
             saldo -= valor;
+            conta.setSaldo(saldo);
         }else{
             //SaldoInsuficienteException;    
         }
         
+    }
+
+    @Override
+    public String toString(){
+        return "Pix";
     }
     
 }
