@@ -58,7 +58,7 @@ public class Conta {
 
     public void AdicionarCategoria(String n){
         Categoria c = new Categoria();
-        n = c.getNome();
+        c.setNome(n);
         categorias.add(c);
     }
 
@@ -71,5 +71,15 @@ public class Conta {
             System.out.println(m);
         }
         
+    }
+
+    public List<Movimentacao> filtrarPorCategoria(String categoria){
+        List<Movimentacao> filtradas = new ArrayList<>();
+        for(Movimentacao m : movimentacoes){
+            if(m.getCategoria().equalsIgnoreCase(categoria.strip())){
+                filtradas.add(m);
+            }
+        }
+        return filtradas;
     }
 }
