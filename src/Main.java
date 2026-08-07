@@ -36,14 +36,15 @@ public class Main {
 
         Conta minhaConta = new Conta(limiteInicial);
 
-        while (escolhaInicial != 3) {
+        while (escolhaInicial != 4) {
             exibirCabecalho(minhaConta); // saldo sempre no topo, antes do menu
 
             System.out.print("----- SISTEMA DE CONTROLE FINANCEIRO -----\n\n" +
                     "Possiveis ações:\n" +
                     "[1] Registrar receita\n" +
                     "[2] Registrar despesa\n" +
-                    "[3] SAIR\n" +
+                    "[3] Ver histórico de movimentações\n" +
+                    "[4] SAIR\n" +
                     "Digite: ");
             escolhaInicial = sc.nextInt();
             sc.nextLine();
@@ -72,7 +73,7 @@ public class Main {
                     sc.nextLine();
 
                     System.out.print
-                    ("--------- Selecione o método de pagamento ---------\n"+
+                    ("--------- MÉTODO DE PAGAMENTO ---------\n"+
                     "[1] - Pix\n[2] - Cartão de crédito\nEscolha: ");
                     escolha = sc.nextInt();
                     sc.nextLine();
@@ -90,7 +91,7 @@ public class Main {
                     System.out.println("Categoria da despesa: ");
                     categoria = sc.nextLine();
 
-                    minhaConta.adicionarMovimentacao(new Despesa(valor, categoria, 0)); // isso estava faltando
+                    minhaConta.adicionarMovimentacao(new Despesa(valor, categoria)); // isso estava faltando
                     minhaConta.setSaldo(minhaConta.getSaldo() - valor); // desconta do saldo
 
                     exibirCabecalho(minhaConta);
@@ -98,8 +99,13 @@ public class Main {
                     System.out.println("Pressione ENTER para voltar ao menu...");
                     sc.nextLine();
                     break;
-
                 case 3:
+                    exibirCabecalho(minhaConta);
+                    minhaConta.exibirHistorico();
+                    System.out.println("\nPressione ENTER para voltar ao menu...");
+                    sc.nextLine();
+                    break;
+                case 4:
                     System.out.println("Saindo do programa...");
                     break;
 
