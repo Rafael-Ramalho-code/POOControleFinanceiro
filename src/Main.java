@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,64 +30,97 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int escolhaInicial = 0;
-        double valor;
+        double valor = 0;
         String categoria;
-        
 
-        System.out.print("Digite o limite inicial do cartão de crédito: ");
-        double limiteInicial = sc.nextDouble();
-        sc.nextLine();
-
+        boolean valido = false;
+        double limiteInicial = 0;
+        while (!valido) {
+            System.out.print("Digite o limite inicial do cartão de crédito: ");
+            try {
+                limiteInicial = sc.nextDouble();
+                sc.nextLine();
+                valido = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida! Digite um número");
+                sc.nextLine();
+            }
+        }
         Conta minhaConta = new Conta(limiteInicial);
 
         while (escolhaInicial != 5) {
+            boolean valido1 = false;
             exibirCabecalho(minhaConta); // saldo sempre no topo, antes do menu
-
-            System.out.print("----- SISTEMA DE CONTROLE FINANCEIRO -----\n\n" +
-                    "Possiveis ações:\n" +
-                    "[1] Registrar receita\n" +
-                    "[2] Registrar despesa\n" +
-                    "[3] Ver histórico de movimentações\n" +
-                    "[4] Filtrar movimentações\n" +
-                    "[5] SAIR\n" +
-                    "Digite: ");
-            escolhaInicial = sc.nextInt();
-            sc.nextLine();
-
+            while (!valido1) {
+                System.out.print("----- SISTEMA DE CONTROLE FINANCEIRO -----\n\n" +
+                        "Possiveis ações:\n" +
+                        "[1] Registrar receita\n" +
+                        "[2] Registrar despesa\n" +
+                        "[3] Ver histórico de movimentações\n" +
+                        "[4] Filtrar movimentações\n" +
+                        "[5] SAIR\n" +
+                        "Digite: ");
+                try {
+                    escolhaInicial = sc.nextInt();
+                    sc.nextLine();
+                    valido1 = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Entrada inválida! Digite um número");
+                    sc.nextLine();
+                }
+            }
             switch (escolhaInicial) {
                 case 1:
-                    System.out.print("Valor da receita: ");
-                    valor = sc.nextDouble();
-                    sc.nextLine();
-                    System.out.println("Categoria da receita: ");
-                    categoria = sc.nextLine();
+                    boolean valido2 = false;
+                    while (!valido2) {
+                        System.out.print("Valor da receita: ");
+                        try {
+                            valor = sc.nextDouble();
+                            sc.nextLine();
+                            valido2 = true;
+                            System.out.println("Categoria da receita: ");
+                            categoria = sc.nextLine();
 
-                    minhaConta.adicionarMovimentacao(new Receita(valor, categoria));
-                    minhaConta.setSaldo(minhaConta.getSaldo() + valor); // atualiza saldo de fato
+                            minhaConta.adicionarMovimentacao(new Receita(valor, categoria));
+                            minhaConta.setSaldo(minhaConta.getSaldo() + valor); // atualiza saldo de fato
 
-                    exibirCabecalho(minhaConta); // reexibe já com o saldo atualizado
-                    System.out.println("Receita registrada com sucesso!");
-                    System.out.println("Pressione ENTER para voltar ao menu...");
-                    sc.nextLine();
+                            exibirCabecalho(minhaConta); // reexibe já com o saldo atualizado
+                            System.out.println("Receita registrada com sucesso!");
+                            System.out.println("Pressione ENTER para voltar ao menu...");
+                            sc.nextLine();
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("Entrada inválida! Digite um número");
+                            sc.nextLine();
+                        }
+                    }
                     break;
 
                 case 2:
+                    boolean valido3 = false;
                     MetodoPagamento meioPagamento;
                     int escolha;
-                    System.out.println("Valor da despesa: ");
-                    valor = sc.nextDouble();
-                    sc.nextLine();
+                    while (!valido3) {
+                        System.out.println("Valor da despesa: ");
+                        try {
+                            valor = sc.nextDouble();
+                            sc.nextLine();
+                            valido3 = true;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Entrada inválida! Digite um número");
+                            sc.nextLine();
+                        }
+                    }
 
-                    System.out.print
-                    ("--------- MÉTODO DE PAGAMENTO ---------\n"+
-                    "[1] - Pix\n[2] - Cartão de crédito\nEscolha: ");
+                    System.out.print("--------- MÉTODO DE PAGAMENTO ---------\n" +
+                            "[1] - Pix\n[2] - Cartão de crédito\nEscolha: ");
                     escolha = sc.nextInt();
                     sc.nextLine();
-                    if(escolha == 1){
+                    if (escolha == 1) {
                         meioPagamento = new Pix();
-                    }else if(escolha == 2){
+                    } else if (escolha == 2) {
                         meioPagamento = new CartaoCredito();
-                    }else{
+                    } else {
                         System.out.println("Digite uma opção válida");
                         continue;
                     }
@@ -95,7 +129,8 @@ public class Main {
                         System.out.println("Categoria da despesa: ");
                         categoria = sc.nextLine();
 
-                        minhaConta.adicionarMovimentacao(new Despesa(valor, categoria, meioPagamento)); // isso estava faltando
+                        minhaConta.adicionarMovimentacao(new Despesa(valor, categoria, meioPagamento)); // isso estava
+                                                                                                        // faltando
 
                         exibirCabecalho(minhaConta);
                         System.out.println("Despesa registrada com sucesso!");
@@ -103,7 +138,7 @@ public class Main {
                         sc.nextLine();
                         break;
                     } catch (SaldoInsuficienteException e) {
-                        System.out.println(e.getMessage()); 
+                        System.out.println(e.getMessage());
                         System.out.println("\nPressione ENTER para voltar ao menu...");
                         sc.nextLine();
                         break;
@@ -119,11 +154,11 @@ public class Main {
                     exibirCabecalho(minhaConta);
                     System.out.print("Digite a categoria que quer filtrar: ");
                     String categoriaEscolhida = sc.nextLine();
-                    List <Movimentacao> resultado = minhaConta.filtrarPorCategoria(categoriaEscolhida);
-                    if(resultado.isEmpty()){
+                    List<Movimentacao> resultado = minhaConta.filtrarPorCategoria(categoriaEscolhida);
+                    if (resultado.isEmpty()) {
                         System.out.println("Categoria não encontrada");
-                    }else{
-                        for(Movimentacao m : resultado){
+                    } else {
+                        for (Movimentacao m : resultado) {
                             System.out.println(m);
                         }
                         System.out.println("\nPressione ENTER para voltar ao menu...");
