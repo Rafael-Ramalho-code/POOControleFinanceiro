@@ -48,7 +48,7 @@ public class Main {
         }
         Conta minhaConta = new Conta(limiteInicial);
 
-        while (escolhaInicial != 6) {
+        while (escolhaInicial != 7) {
             boolean valido1 = false;
             exibirCabecalho(minhaConta); // saldo sempre no topo, antes do menu
             while (!valido1) {
@@ -59,7 +59,8 @@ public class Main {
                         "[3] Ver histórico de movimentações\n" +
                         "[4] Filtrar movimentações\n" +
                         "[5] Filtrar por método de pagamento\n" +
-                        "[6] SAIR\n" +
+                        "[6] Exibir receita e despesa totais do mês\n" +
+                        "[7] SAIR\n" +
                         "Digite: ");
                 try {
                     escolhaInicial = sc.nextInt();
@@ -195,6 +196,12 @@ public class Main {
                     }
                     break;
                 case 6:
+                    exibirCabecalho(minhaConta);
+                    minhaConta.exibirTotais();
+                    System.out.println("\nPressione ENTER para voltar ao menu...");
+                    sc.nextLine();
+                    break;
+                case 7:
                     System.out.println("Saindo do programa...");
                     break;
 
