@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Scanner;
 
+import excecoes.SaldoInsuficienteException;
 import modelo.Conta;
 import modelo.Despesa;
 import modelo.Movimentacao;
@@ -83,26 +84,31 @@ public class Main {
                     sc.nextLine();
                     if(escolha == 1){
                         meioPagamento = new Pix();
-                        meioPagamento.processarPagamento(valor, minhaConta);
                     }else if(escolha == 2){
                         meioPagamento = new CartaoCredito();
-                        meioPagamento.processarPagamento(valor, minhaConta);
                     }else{
                         System.out.println("Digite uma opção válida");
                         continue;
                     }
+                    try {
+                        meioPagamento.processarPagamento(valor, minhaConta);
+                        System.out.println("Categoria da despesa: ");
+                        categoria = sc.nextLine();
 
-                    System.out.println("Categoria da despesa: ");
-                    categoria = sc.nextLine();
+                        minhaConta.adicionarMovimentacao(new Despesa(valor, categoria, meioPagamento)); // isso estava faltando
 
-                    minhaConta.adicionarMovimentacao(new Despesa(valor, categoria, meioPagamento)); // isso estava faltando
-                    minhaConta.setSaldo(minhaConta.getSaldo() - valor); // desconta do saldo
+                        exibirCabecalho(minhaConta);
+                        System.out.println("Despesa registrada com sucesso!");
+                        System.out.println("Pressione ENTER para voltar ao menu...");
+                        sc.nextLine();
+                        break;
+                    } catch (SaldoInsuficienteException e) {
+                        System.out.println(e.getMessage()); 
+                        System.out.println("\nPressione ENTER para voltar ao menu...");
+                        sc.nextLine();
+                        break;
+                    }
 
-                    exibirCabecalho(minhaConta);
-                    System.out.println("Despesa registrada com sucesso!");
-                    System.out.println("Pressione ENTER para voltar ao menu...");
-                    sc.nextLine();
-                    break;
                 case 3:
                     exibirCabecalho(minhaConta);
                     minhaConta.exibirHistorico();

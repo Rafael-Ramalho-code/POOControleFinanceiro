@@ -1,5 +1,6 @@
 package pagamento;
 
+import excecoes.SaldoInsuficienteException;
 import modelo.Conta;
 
 public class CartaoCredito implements MetodoPagamento{
@@ -11,16 +12,15 @@ public class CartaoCredito implements MetodoPagamento{
     */
 
     @Override
-    public void processarPagamento(double valor, Conta conta) {
+    public void processarPagamento(double valor, Conta conta) throws SaldoInsuficienteException{
        double limite = conta.getLimiteCartao();
        double fatura = conta.getFaturaCartao();
 
-       if(limite - fatura >= valor && valor <= limite){
+       if(limite >= valor + fatura){
             fatura += valor;
             conta.setFaturaCartao(fatura);
         }else{
-            //SaldoInsuficienteException
-            System.out.println("Não é possível fazer a transação no momento");
+            throw new SaldoInsuficienteException("Valor excede o limite restante");
         }
         
     }
