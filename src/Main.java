@@ -48,7 +48,7 @@ public class Main {
         }
         Conta minhaConta = new Conta(limiteInicial);
 
-        while (escolhaInicial != 5) {
+        while (escolhaInicial != 6) {
             boolean valido1 = false;
             exibirCabecalho(minhaConta); // saldo sempre no topo, antes do menu
             while (!valido1) {
@@ -58,7 +58,8 @@ public class Main {
                         "[2] Registrar despesa\n" +
                         "[3] Ver histórico de movimentações\n" +
                         "[4] Filtrar movimentações\n" +
-                        "[5] SAIR\n" +
+                        "[5] Filtrar por método de pagamento\n" +
+                        "[6] SAIR\n" +
                         "Digite: ");
                 try {
                     escolhaInicial = sc.nextInt();
@@ -98,7 +99,7 @@ public class Main {
 
                 case 2:
                     boolean valido3 = false;
-                    MetodoPagamento meioPagamento;
+                    MetodoPagamento meioPagamento = null;
                     int escolha;
                     while (!valido3) {
                         System.out.println("Valor da despesa: ");
@@ -111,19 +112,32 @@ public class Main {
                             sc.nextLine();
                         }
                     }
-
-                    System.out.print("--------- MÉTODO DE PAGAMENTO ---------\n" +
-                            "[1] - Pix\n[2] - Cartão de crédito\nEscolha: ");
-                    escolha = sc.nextInt();
-                    sc.nextLine();
-                    if (escolha == 1) {
-                        meioPagamento = new Pix();
-                    } else if (escolha == 2) {
-                        meioPagamento = new CartaoCredito();
-                    } else {
-                        System.out.println("Digite uma opção válida");
-                        continue;
+                    valido3 = false;
+                    while(!valido3){
+                        System.out.print("--------- MÉTODO DE PAGAMENTO ---------\n" +
+                                "[1] - Pix\n[2] - Cartão de crédito\nEscolha: ");
+                        try{
+                            escolha = sc.nextInt();
+                            sc.nextLine();
+                            if(escolha == 1){
+                                meioPagamento = new Pix();
+                                valido3 = true;
+                            }else if(escolha == 2){
+                                meioPagamento = new CartaoCredito();
+                                valido3 = true;
+                            }else{
+                                System.out.println("Opção inválida. Digite [1] ou [2]");
+                            }
+                            
+                            
+                        }catch(InputMismatchException e){
+                            System.out.println("Entrada inválida! Digite um número");
+                            sc.nextLine();
+                        }
+                        
                     }
+                    
+                    
                     try {
                         meioPagamento.processarPagamento(valor, minhaConta);
                         System.out.println("Categoria da despesa: ");
@@ -166,6 +180,21 @@ public class Main {
                     }
                     break;
                 case 5:
+                    exibirCabecalho(minhaConta);
+                    System.out.print("Digite o método de pagamento para filtrar: ");
+                    String pagamento = sc.nextLine();
+                    List<Despesa> filtradas = minhaConta.filtrarPorMeioPagamento(pagamento);
+                    if (filtradas.isEmpty()) {
+                        System.out.println("Nenhuma despesa encontrada com esse método de pagamento");
+                    } else {
+                        for (Despesa d : filtradas) {
+                            System.out.println(d);
+                        }
+                        System.out.println("\nPressione ENTER para voltar ao menu...");
+                        sc.nextLine();
+                    }
+                    break;
+                case 6:
                     System.out.println("Saindo do programa...");
                     break;
 

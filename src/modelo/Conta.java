@@ -82,4 +82,15 @@ public class Conta {
         }
         return filtradas;
     }
+    public List<Despesa> filtrarPorMeioPagamento(String metodo){
+        List<Despesa> filtradas = new ArrayList<>();
+        for(Movimentacao m : movimentacoes){
+            if(m instanceof Despesa d){
+                if(d.getMeioPagamento().toString().equalsIgnoreCase(metodo.strip())){
+                    filtradas.add(d);
+                }
+            }
+        }
+        return filtradas;
+    }
 }
