@@ -93,4 +93,21 @@ public class Conta {
         }
         return filtradas;
     }
+    
+    public void exibirTotais(){
+        double despesaTotal = 0;
+        double receitaTotal = 0;
+        for(Movimentacao m : movimentacoes){
+            if(m instanceof Despesa d){
+                despesaTotal += d.getValor();
+            }else if(m instanceof Receita r){
+                receitaTotal += r.getValor();
+            }
+        }
+        System.out.printf("--------DADOS DO MÊS--------" +
+        "%nReceita total: R$ %.2f" +
+        "%nDespesa total: R$ %.2f%n", receitaTotal, despesaTotal);
+        
+    }
+    
 }
