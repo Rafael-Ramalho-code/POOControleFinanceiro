@@ -1,5 +1,6 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,12 +54,18 @@ public class Conta {
 
     public void adicionarMovimentacao(Movimentacao m){
         movimentacoes.add(m);
-        AdicionarCategoria(m.getCategoria());
+        adicionarCategoria(m.getCategoria());
     }
 
-    public void AdicionarCategoria(String n){
+    // só cadastra a categoria se ela ainda não existir (antes duplicava a cada movimentação)
+    public void adicionarCategoria(String n){
+        for(Categoria c : categorias){
+            if(c.getNome().equalsIgnoreCase(n.strip())){
+                return;
+            }
+        }
         Categoria c = new Categoria();
-        c.setNome(n);
+        c.setNome(n.strip());
         categorias.add(c);
     }
 
@@ -97,7 +104,12 @@ public class Conta {
     public void exibirTotais(){
         double despesaTotal = 0;
         double receitaTotal = 0;
+        LocalDate hoje = LocalDate.now();
         for(Movimentacao m : movimentacoes){
+            // considera só o mês atual, já que a opção é "totais do mês"
+            if(m.getData().getMonth() != hoje.getMonth() || m.getData().getYear() != hoje.getYear()){
+                continue;
+            }
             if(m instanceof Despesa d){
                 despesaTotal += d.getValor();
             }else if(m instanceof Receita r){

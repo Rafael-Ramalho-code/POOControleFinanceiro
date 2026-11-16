@@ -20,7 +20,8 @@ public class Categoria {
         this.descricao = descricao;
     }
 
-    public String toSrting(){
+    @Override
+    public String toString(){
         return "Categoria: " + nome + "\nDescrição: " + descricao;
     }
     

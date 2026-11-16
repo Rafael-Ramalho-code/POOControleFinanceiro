@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import excecoes.SaldoInsuficienteException;
+import excecoes.ValorInvalidoException;
 import modelo.Conta;
 import modelo.Despesa;
 import modelo.Movimentacao;
@@ -10,6 +11,7 @@ import modelo.Receita;
 import pagamento.CartaoCredito;
 import pagamento.MetodoPagamento;
 import pagamento.Pix;
+import utilidades.Validador;
 
 public class Main {
 
@@ -79,6 +81,7 @@ public class Main {
                         try {
                             valor = sc.nextDouble();
                             sc.nextLine();
+                            Validador.validarValor(valor);
                             valido2 = true;
                             System.out.println("Categoria da receita: ");
                             categoria = sc.nextLine();
@@ -94,6 +97,8 @@ public class Main {
                         } catch (InputMismatchException e) {
                             System.out.println("Entrada inválida! Digite um número");
                             sc.nextLine();
+                        } catch (ValorInvalidoException e) {
+                            System.out.println(e.getMessage());
                         }
                     }
                     break;
@@ -107,10 +112,13 @@ public class Main {
                         try {
                             valor = sc.nextDouble();
                             sc.nextLine();
+                            Validador.validarValor(valor);
                             valido3 = true;
                         } catch (InputMismatchException e) {
                             System.out.println("Entrada inválida! Digite um número");
                             sc.nextLine();
+                        } catch (ValorInvalidoException e) {
+                            System.out.println(e.getMessage());
                         }
                     }
                     valido3 = false;
@@ -176,14 +184,18 @@ public class Main {
                         for (Movimentacao m : resultado) {
                             System.out.println(m);
                         }
-                        System.out.println("\nPressione ENTER para voltar ao menu...");
-                        sc.nextLine();
                     }
+                    System.out.println("\nPressione ENTER para voltar ao menu...");
+                    sc.nextLine();
                     break;
                 case 5:
                     exibirCabecalho(minhaConta);
-                    System.out.print("Digite o método de pagamento para filtrar: ");
-                    String pagamento = sc.nextLine();
+                    System.out.print("Filtrar por: [1] Pix  [2] Cartão de crédito\nEscolha: ");
+                    String opcaoPagamento = sc.nextLine().strip();
+                    // usa o mesmo texto do toString() de Pix e CartaoCredito
+                    String pagamento = opcaoPagamento.equals("1") ? new Pix().toString()
+                            : opcaoPagamento.equals("2") ? new CartaoCredito().toString()
+                            : opcaoPagamento;
                     List<Despesa> filtradas = minhaConta.filtrarPorMeioPagamento(pagamento);
                     if (filtradas.isEmpty()) {
                         System.out.println("Nenhuma despesa encontrada com esse método de pagamento");
@@ -191,9 +203,9 @@ public class Main {
                         for (Despesa d : filtradas) {
                             System.out.println(d);
                         }
-                        System.out.println("\nPressione ENTER para voltar ao menu...");
-                        sc.nextLine();
                     }
+                    System.out.println("\nPressione ENTER para voltar ao menu...");
+                    sc.nextLine();
                     break;
                 case 6:
                     exibirCabecalho(minhaConta);
@@ -207,6 +219,8 @@ public class Main {
 
                 default:
                     System.out.println("Digite uma opção válida");
+                    System.out.println("Pressione ENTER para continuar...");
+                    sc.nextLine();
             }
         }
         sc.close();
